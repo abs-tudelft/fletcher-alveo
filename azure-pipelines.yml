@@ -1,6 +1,6 @@
 jobs:
 
-- job: driver
+- job: Docker
   pool:
     vmImage: ubuntu-latest
   steps:
@@ -10,3 +10,7 @@ jobs:
       docker build -t fletcher-alveo/driver .
     workingDirectory: $(Build.SourcesDirectory)/driver
     displayName: Build driver image
+  - script: |
+      docker build -t fletcher-alveo/runtime .
+    workingDirectory: $(Build.SourcesDirectory)/runtime
+    displayName: Build runtime image

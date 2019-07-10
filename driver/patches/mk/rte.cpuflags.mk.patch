@@ -1,0 +1,8 @@
+--- dpdk/mk/rte.cpuflags.mk	2019-07-08 11:57:29.000000000 +0200
++++ patches/rte.cpuflags.mk	2019-07-10 14:44:53.000000000 +0200
+@@ -118,3 +118,5 @@
+ CPUFLAGSTMP1 := $(addprefix RTE_CPUFLAG_,$(CPUFLAGS))
+ CPUFLAGSTMP2 := $(subst $(space),$(comma),$(CPUFLAGSTMP1))
+ CPUFLAGS_LIST := -DRTE_COMPILE_TIME_CPUFLAGS=$(CPUFLAGSTMP2)
++
++$(shell echo ${MACHINE_CFLAGS} > ${RTE_SDK}/${RTE_TARGET}/include/cflags.txt)

@@ -18,16 +18,14 @@ ADD patches /patches
 WORKDIR /patches
 RUN patch /dpdk/config/common_base config/common_base.patch && \
     patch /dpdk/drivers/net/Makefile drivers/net/Makefile.patch && \
-    patch /dpdk/mk/rte.app.mk mk/rte.app.mk.patch
+    patch /dpdk/mk/rte.app.mk mk/rte.app.mk.patch && \
+    patch /dpdk/mk/rte.cpuflags.mk mk/rte.cpuflags.mk.patch
 
 WORKDIR /dpdk
 ENV RTE_SDK /dpdk
 ENV RTE_TARGET x86_64-native-linuxapp-gcc
 RUN export KERNEL_VERSION=`ls /usr/src/kernels/` && \
     make config RTE_KERNELDIR=/usr/src/kernels/$KERNEL_VERSION T=$RTE_TARGET install
-
-WORKDIR /dpdk/examples/qdma_testapp
-RUN make
 
 SHELL ["/bin/bash", "-c"]
 ENTRYPOINT mkdir -p /mnt/huge && \
