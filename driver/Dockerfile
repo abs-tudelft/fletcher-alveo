@@ -4,11 +4,13 @@ RUN yum install -y \
       gcc \
       git \
       glibc-devel \
+      iproute \
       kernel-devel \
       make \
       numactl-devel \
       patch \
-      pciutils && \
+      pciutils \
+      which && \
     yum clean all && \
     rm -rf /var/cache/yum
 
@@ -19,7 +21,8 @@ WORKDIR /patches
 RUN patch /dpdk/config/common_base config/common_base.patch && \
     patch /dpdk/drivers/net/Makefile drivers/net/Makefile.patch && \
     patch /dpdk/mk/rte.app.mk mk/rte.app.mk.patch && \
-    patch /dpdk/mk/rte.cpuflags.mk mk/rte.cpuflags.mk.patch
+    patch /dpdk/mk/rte.cpuflags.mk mk/rte.cpuflags.mk.patch && \
+    patch /dpdk/usertools/dpdk-devbind.py usertools/dpdk-devbind.py.patch
 
 WORKDIR /dpdk
 ENV RTE_SDK /dpdk
@@ -33,7 +36,10 @@ ENTRYPOINT mkdir -p /mnt/huge && \
            modprobe uio && \
            lsmod | grep -q igb_uio || insmod $RTE_SDK/$RTE_TARGET/kmod/igb_uio.ko && \
            export PCI_DEV=`lspci -D | grep 903f | awk '{print $1;}'` && \
-           echo 'igb_uio' > /sys/bus/pci/devices/$PCI_DEV/driver_override && \
-           echo $PCI_DEV >> /sys/bus/pci/drivers/igb_uio/bind && \
+           export PCI_DEV_SHORT=`lspci | grep 903f | awk '{print $1;}'` && \
+           /dpdk/usertools/dpdk-devbind.py -b igb_uio $PCI_DEV_SHORT && \
+           # echo 'igb_uio' > /sys/bus/pci/devices/$PCI_DEV/driver_override && \
+           # echo $PCI_DEV >> /sys/bus/pci/drivers/igb_uio/bind && \
            bash ; \
-           echo $PCI_DEV >> /sys/bus/pci/drivers/igb_uio/unbind
+           /dpdk/usertools/dpdk-devbind.py -u $PCI_DEV_SHORT
+           # echo $PCI_DEV >> /sys/bus/pci/drivers/igb_uio/unbind
