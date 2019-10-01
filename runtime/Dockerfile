@@ -23,4 +23,4 @@ gpgkey=https://dl.bintray.com/apache/arrow/centos/RPM-GPG-KEY-apache-arrow" > /e
 
 ADD . /runtime
 WORKDIR /build
-RUN cmake /runtime && make
+RUN cmake /runtime -DBUILD_TESTS=ON && make
