@@ -20,6 +20,8 @@ jobs:
     parameters:
       xrtVersion: $(xrtVersion)
   - template: steps/install-cmake.yml@abs-tudelft
+  - script: |
+      sudo apt-get install -y opencl-clhpp-headers
   - template: steps/cmake.yml@abs-tudelft
     parameters:
       source: runtime
