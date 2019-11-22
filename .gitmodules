@@ -1,7 +1,10 @@
 [submodule "driver/dma_ip_drivers"]
-	path = driver/dma_ip_drivers
+	path = experimental/driver/dma_ip_drivers
 	url = https://github.com/Xilinx/dma_ip_drivers
 [submodule "driver/dpdk"]
-	path = driver/dpdk
+	path = experimental/driver/dpdk
 	url = https://github.com/DPDK/dpdk
 	branch = v18.11
+[submodule "fletcher"]
+	path = fletcher
+	url = https://github.com/abs-tudelft/fletcher

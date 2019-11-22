@@ -1,12 +1,25 @@
+resources:
+  repositories:
+  - repository: abs-tudelft
+    type: github
+    endpoint: github
+    name: abs-tudelft/azure-pipelines-templates
+
+variables:
+  xrtVersion: 201920.2.3.1301
+
 jobs:
 
-- job: driver
+- job: runtime
   pool:
-    vmImage: ubuntu-latest
+    vmImage: ubuntu-18.04
   steps:
   - checkout: self
     submodules: true
-  - script: |
-      docker build -t fletcher-alveo/driver .
-    workingDirectory: $(Build.SourcesDirectory)/driver
-    displayName: Build driver image
+  - template: steps/install-xrt.yml@abs-tudelft
+    parameters:
+      xrtVersion: $(xrtVersion)
+  - template: steps/install-cmake.yml@abs-tudelft
+  - template: steps/cmake.yml@abs-tudelft
+    parameters:
+      source: runtime
