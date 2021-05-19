@@ -1,7 +1,0 @@
-[submodule "driver/dma_ip_drivers"]
-	path = driver/dma_ip_drivers
-	url = https://github.com/Xilinx/dma_ip_drivers
-[submodule "driver/dpdk"]
-	path = driver/dpdk
-	url = https://github.com/DPDK/dpdk
-	branch = v18.11

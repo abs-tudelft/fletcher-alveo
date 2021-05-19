@@ -1,0 +1,10 @@
+tmp_kernel_*
+packaged_kernel_*
+*.log
+*.html
+*.jou
+*.pb
+xclbin/**
+_x/**
+all-sources/**
+.ipcache/**

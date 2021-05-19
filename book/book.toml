@@ -1,0 +1,6 @@
+[book]
+authors = ["Ákos Hadnagy"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Fletcher platform support for Xilinx Alveo"

@@ -1,9 +1,0 @@
---- dpdk/drivers/net/Makefile	2019-07-08 12:19:29.000000000 +0200
-+++ patches/Makefile	2019-07-08 13:41:25.000000000 +0200
-@@ -73,4 +73,6 @@
- endif
- endif
-
-+DIRS-$(CONFIG_RTE_LIBRTE_QDMA_PMD) += qdma
-+
- include $(RTE_SDK)/mk/rte.subdir.mk
